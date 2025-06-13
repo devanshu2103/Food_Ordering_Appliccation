@@ -1,42 +1,21 @@
 {% extends "food/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-   
-</head>
-<body>
-    {% block body %}
-    {% for item in item_list %}
-    
+
+{% block body %}
+<div class="container mt-4">
     <div class="row">
-        <div class="col-md-3 offset-md-2">
-            <img src="{{item.item_image}}" height="150px" class="card">
-
+        {% for item in item_list %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ item.item_image }}" class="card-img-top" alt="{{ item.item_name }}" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ item.item_name }}</h5>
+                    <p class="card-text">{{ item.item_disc }}</p>
+                    <p class="card-text fw-bold text-primary">${{ item.item_price }}</p>
+                    <a href="{% url 'food:detail' item.id %}" class="btn btn-success mt-auto align-self-start">Details</a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h3>{{ item.item_name }}</h3>
-            <h4>{{ item.item_disc }}</h4>
-            <h5>{{ item.item_price }}</h5>
-
-        </div>
-        <div class="col-md-2">
-            <a href="{% url 'food:detail' item.id %}" class="btn-success">Details</a>
-
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    {% endblock %}
-    old code 
-
-   <ul>
-    <li>
-        <a href=""> {{item.id}} -- {{item.item_name}}</a>
-    </li>
-   </ul>
-    
-    
-</body>
-</html>
+</div>
+{% endblock %}
